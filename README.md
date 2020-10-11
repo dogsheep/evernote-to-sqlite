@@ -29,6 +29,8 @@ This will display a progress bar and create a SQLite database file called `evern
 
 Unfortunately the ENEX export format does not include a unique identifier for each note. This means you cannot use this tool to re-import notes after they have been updated - you should consider this tool to be a one-time transformation of an ENEX file into an equivalent SQLite database.
 
+ENEX exports also do not include details of which notebook a note belongs to.
+
 ## Development
 
 To contribute to this tool, first checkout the code. Then create a new virtual environment:
