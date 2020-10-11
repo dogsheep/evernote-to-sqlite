@@ -34,7 +34,7 @@ def test_enex(tmpdir):
     }
     assert list(db["notes"].rows) == [
         {
-            "id": "54ac334082cd0013c4d3898649d12d45d95f966c",
+            "id": "90793bd8e8b666d74e70f595b7bf07e04509688e",
             "title": "Example note with images",
             "content": '<en-note><div>This note includes two images.</div><div><br /></div><div><b>The Python logo</b></div><div><br /></div><div><en-media hash="61098c2c541de7f0a907c301dd6542da" type="image/svg+xml" width="125" /></div><div><br /></div><div><b>The Evernote logo</b></div><div><br /></div><div><en-media hash="91bd26175acac0b2ffdb6efac199f8ca" type="image/svg+xml" width="125" /></div><div><br /></div></en-note>',
             "created": "2020-10-11T21:28:22",
@@ -44,6 +44,7 @@ def test_enex(tmpdir):
             "altitude": "23.16121864318848",
             "author": "Simon Willison",
             "source": "desktop.mac",
+            "subject-date": "2013-11-12T01:44:06",
             "reminder-order": "0",
         }
     ]
@@ -79,11 +80,11 @@ def test_enex(tmpdir):
     ]
     assert list(db["note_resources"].rows) == [
         {
-            "note_id": "54ac334082cd0013c4d3898649d12d45d95f966c",
+            "note_id": "90793bd8e8b666d74e70f595b7bf07e04509688e",
             "resource_id": "61098c2c541de7f0a907c301dd6542da",
         },
         {
-            "note_id": "54ac334082cd0013c4d3898649d12d45d95f966c",
+            "note_id": "90793bd8e8b666d74e70f595b7bf07e04509688e",
             "resource_id": "91bd26175acac0b2ffdb6efac199f8ca",
         },
     ]

@@ -38,6 +38,10 @@ def save_note(db, note):
     attributes = note.find("note-attributes")
     if attributes is not None:
         row.update({attribute.tag: attribute.text for attribute in attributes})
+    # If any of those attributes end in -date, e.g. 'subject-date', convert them
+    for key in row:
+        if key.endswith("-date"):
+            row[key] = convert_datetime(row[key])
     note_id = db["notes"].insert(row, hash_id="id", replace=True, alter=True).last_pk
     # Now do the resources
     for resource in note.findall("resource"):
