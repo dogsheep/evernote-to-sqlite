@@ -27,8 +27,6 @@ def enex(db_path, enex_file):
     fp = open(enex_file)
     db = sqlite_utils.Database(db_path)
     with click.progressbar(length=file_length, label="Importing from ENEX") as bar:
-        for i, (tag, note) in enumerate(
-            find_all_tags(fp, ["note"], progress_callback=bar.update)
-        ):
-            save_note(db, note, i + 1)
+        for tag, note in find_all_tags(fp, ["note"], progress_callback=bar.update):
+            save_note(db, note)
     fp.close()

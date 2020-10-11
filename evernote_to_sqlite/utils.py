@@ -1,6 +1,7 @@
 from xml.etree import ElementTree as ET
-import hashlib
 import base64
+import datetime
+import hashlib
 
 
 def find_all_tags(fp, tags, progress_callback=None):
@@ -21,7 +22,7 @@ def find_all_tags(fp, tags, progress_callback=None):
             progress_callback(len(chunk))
 
 
-def save_note(db, note, note_id):
+def save_note(db, note):
     title = note.find("title").text
     created = note.find("created").text
     updated = note.find("updated").text
@@ -29,16 +30,15 @@ def save_note(db, note, note_id):
     content_xml = note.find("content").text.replace("&nbsp;", "")
     content = ET.tostring(ET.fromstring(content_xml)).decode("utf-8")
     row = {
-        "id": note_id,
         "title": title,
         "content": content,
-        "created": created,
-        "updated": updated,
+        "created": convert_datetime(created),
+        "updated": convert_datetime(updated),
     }
     attributes = note.find("note-attributes")
     if attributes is not None:
         row.update({attribute.tag: attribute.text for attribute in attributes})
-    db["notes"].insert(row, pk="id", replace=True, alter=True)
+    note_id = db["notes"].insert(row, hash_id="id", replace=True, alter=True).last_pk
     # Now do the resources
     for resource in note.findall("resource"):
         resource_id = save_resource(db, resource)
@@ -82,3 +82,7 @@ def save_resource(db, resource):
     db["resources"].insert(row, pk="md5", alter=True, replace=True)
     db["resources_data"].insert({"md5": md5, "data": data}, pk="md5", replace=True)
     return md5
+
+
+def convert_datetime(s):
+    return datetime.datetime.strptime(s, "%Y%m%dT%H%M%SZ").isoformat()
