@@ -88,7 +88,9 @@ def ensure_indexes(db):
     for column in ("created", "updated"):
         db["notes"].create_index([column], if_not_exists=True)
     if not db["notes_fts"].exists():
-        db["notes"].enable_fts(["title", "content"], create_triggers=True)
+        db["notes"].enable_fts(
+            ["title", "content"], create_triggers=True, tokenize="porter"
+        )
 
 
 def convert_datetime(s):

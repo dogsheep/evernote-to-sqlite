@@ -87,3 +87,5 @@ def test_enex(tmpdir):
             "resource_id": "91bd26175acac0b2ffdb6efac199f8ca",
         },
     ]
+    # Check we enabled Porter stemming
+    assert "tokenize='porter'" in db["notes_fts"].schema
