@@ -84,5 +84,12 @@ def save_resource(db, resource):
     return md5
 
 
+def ensure_indexes(db):
+    for column in ("created", "updated"):
+        db["notes"].create_index([column], if_not_exists=True)
+    if not db["notes_fts"].exists():
+        db["notes"].enable_fts(["title", "content"], create_triggers=True)
+
+
 def convert_datetime(s):
     return datetime.datetime.strptime(s, "%Y%m%dT%H%M%SZ").isoformat()

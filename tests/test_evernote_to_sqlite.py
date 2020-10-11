@@ -26,6 +26,11 @@ def test_enex(tmpdir):
         "resources",
         "resources_data",
         "note_resources",
+        "notes_fts_idx",
+        "notes_fts",
+        "notes_fts_config",
+        "notes_fts_docsize",
+        "notes_fts_data",
     }
     assert list(db["notes"].rows) == [
         {

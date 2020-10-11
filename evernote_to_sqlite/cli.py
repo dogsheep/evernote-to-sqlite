@@ -1,7 +1,7 @@
 import sqlite_utils
 import click
 import os
-from .utils import find_all_tags, save_note
+from .utils import find_all_tags, save_note, ensure_indexes
 
 
 @click.group()
@@ -30,3 +30,4 @@ def enex(db_path, enex_file):
         for tag, note in find_all_tags(fp, ["note"], progress_callback=bar.update):
             save_note(db, note)
     fp.close()
+    ensure_indexes(db)
