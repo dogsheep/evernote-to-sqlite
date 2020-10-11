@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE en-export SYSTEM "http://xml.evernote.com/pub/evernote-export3.dtd">
+<en-export export-date="20201011T213047Z" application="Evernote" version="Evernote Mac 7.14 (458265)">
+<note><title>Example note with images</title><content><![CDATA[<!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd"><en-note><div>This note includes two images.</div><div><br /></div><div><b>The Python logo</b></div><div><br /></div><div><en-media hash="61098c2c541de7f0a907c301dd6542da" type="image/svg+xml" width="125" /></div><div><br /></div><div><b>The Evernote logo</b></div><div><br /></div><div><en-media hash="91bd26175acac0b2ffdb6efac199f8ca" type="image/svg+xml" width="125" /></div><div><br /></div></en-note>]]></content><created>20201011T212822Z</created><updated>20201011T213026Z</updated><note-attributes><latitude>37.7</latitude><longitude>-122.4</longitude><altitude>23.16121864318848</altitude><author>Simon Willison</author><source>desktop.mac</source><reminder-order>0</reminder-order></note-attributes><resource><data encoding="base64">PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8v
+d3d3LnczLm9yZy8xOTk5L3hsaW5rIgphcmlhLWxhYmVsPSJQeXRob24iIHJvbGU9ImltZyIKdmlld0Jv
+eD0iMCAwIDUxMiA1MTIiPjxyZWN0CndpZHRoPSI1MTIiIGhlaWdodD0iNTEyIgpyeD0iMTUlIgpmaWxs
+PSIjZmZmIi8+PGcgZmlsbD0iIzVhOWZkNCI+PHBhdGggaWQ9InAiIGQ9Ik0yNTQgNjRjLTE2IDAtMzEg
+MS00NCA0LTM5IDctNDYgMjEtNDYgNDd2MzVoOTJ2MTJIMTMwYy0yNyAwLTUwIDE2LTU4IDQ2LTggMzUt
+OCA1NyAwIDkzIDcgMjggMjMgNDcgNDkgNDdoMzJ2LTQyYzAtMzAgMjYtNTcgNTctNTdoOTFjMjYgMCA0
+Ni0yMSA0Ni00NnYtODhjMC0yNC0yMS00My00Ni00Ny0xNS0zLTMyLTQtNDctNHptLTUwIDI4YzEwIDAg
+MTcgOCAxNyAxOCAwIDktNyAxNy0xNyAxNy05IDAtMTctOC0xNy0xNyAwLTEwIDgtMTggMTctMTh6Ii8+
+PC9nPjx1c2UgeGxpbms6aHJlZj0iI3AiIGZpbGw9IiNmZmQ0M2IiIHRyYW5zZm9ybT0icm90YXRlKDE4
+MCwyNTYsMjU1KSIvPjwvc3ZnPg==</data><mime>image/svg+xml</mime><width>0</width><height>0</height><duration>0</duration><resource-attributes><timestamp>19700101T000000Z</timestamp></resource-attributes></resource><resource><data encoding="base64">PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCmFyaWEtbGFiZWw9IkV2ZXJub3Rl
+IiByb2xlPSJpbWciCnZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdAp3aWR0aD0iNTEyIiBoZWlnaHQ9
+IjUxMiIKcng9IjE1JSIKZmlsbD0iIzQ2Yzg1MCIvPjxwYXRoIGQ9Im0xMjEgMTQzaDM1YzMgMCA0LTEg
+NC00bC0xLTM4YzAtMTAgNi0xOSA2LTE5aC0xbC02OCA2N3YxczEwLTcgMjUtN3ptMjcxLTZjLTMtMTUt
+MTItMjMtMjAtMjUtMzItOC02NS0xMi05OC0xMS0yLTE5LTE4LTI5LTU0LTI5LTMxLTEtNDkgNi00OSAy
+OXYzOWMwIDgtNSAxMy0xNCAxM2gtMzRjLTcgMC0xMyAyLTE4IDQtNCAyLTE0IDctMTQgMzAtMSAxOSAx
+MyA5NSAyMyAxMTUgMyA5IDYgMTIgMTQgMTUgMTYgOCA1NCAxNSA3MyAxOCAxNyAyIDI4IDYgMzYtOCAy
+LTQgMTAtMzAgOS01MiAwLTEgMi0yIDIgMCAwIDctMiAzNiAxOSA0M2w0NSA5YzE2IDEgMjggNyAyOCA0
+OSAwIDI1LTYgMjgtMzQgMjgtMjIgMC0zMCAxLTMwLTE3IDAtMTQgMTQtMTMgMjUtMTMgNCAwIDEtMyAx
+LTEyczUtMTQgMC0xNGMtMzYtMS01OCAwLTU4IDQ1IDAgNDIgMTYgNDkgNjggNDkgNDAgMCA1NS0xIDcx
+LTUyIDI1LTc4IDE4LTIwNSA5LTI1M3ptLTQ2IDExNWMtNS02LTMxLTgtNDAtNCAyLTEwIDYtMjIgMjIt
+MjIgMTUgMCAxOCAxNiAxOCAyNnoiIGZpbGw9IiM0YjRiNGIiLz48L3N2Zz4=</data><mime>image/svg+xml</mime><width>0</width><height>0</height><duration>0</duration><resource-attributes><timestamp>19700101T000000Z</timestamp></resource-attributes></resource></note>
+</en-export>
