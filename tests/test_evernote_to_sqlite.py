@@ -31,23 +31,28 @@ def test_enex(tmpdir):
         "notes_fts_config",
         "notes_fts_docsize",
         "notes_fts_data",
+        "resources_fts_config",
+        "resources_fts",
+        "resources_fts_idx",
+        "resources_fts_data",
+        "resources_fts_docsize",
     }
     assert list(db["notes"].rows) == [
         {
-            "id": "90793bd8e8b666d74e70f595b7bf07e04509688e",
+            "id": "8e2d6cef463bf974fe15c145d02dcfb90e4dc2af",
             "title": "Example note with images",
-            "content": '<en-note><div>This note includes two images.</div><div><br /></div><div><b>The Python logo</b></div><div><br /></div><div><en-media hash="61098c2c541de7f0a907c301dd6542da" type="image/svg+xml" width="125" /></div><div><br /></div><div><b>The Evernote logo</b></div><div><br /></div><div><en-media hash="91bd26175acac0b2ffdb6efac199f8ca" type="image/svg+xml" width="125" /></div><div><br /></div></en-note>',
+            "content": '<en-note><div>This note includes two images.</div><div><br /></div><div><span style="font-weight: bold;">The Python logo</span></div><div><br /></div><div><en-media hash="61098c2c541de7f0a907c301dd6542da" type="image/svg+xml" width="125" /><br /></div><div><br /></div><div><span style="font-weight: bold;">The Evernote logo</span></div><div><br /></div><div><en-media hash="91bd26175acac0b2ffdb6efac199f8ca" type="image/svg+xml" width="125" /><br /></div><div><br /></div><div>This image contains text:</div><div><br /></div><div><en-media hash="76dd28b07797cc9f3f129c4871c5293c" type="image/png" /></div><div><br /></div></en-note>',
             "created": "2020-10-11T21:28:22",
-            "updated": "2020-10-11T21:30:26",
-            "latitude": "37.7",
-            "longitude": "-122.4",
+            "updated": "2020-10-11T23:30:38",
+            "latitude": "37.77742571705006",
+            "longitude": "-122.4256495114116",
             "altitude": "23.16121864318848",
             "author": "Simon Willison",
             "source": "desktop.mac",
-            "subject-date": "2013-11-12T01:44:06",
             "reminder-order": "0",
         }
     ]
+
     assert list(db["resources"].rows) == [
         {
             "md5": "61098c2c541de7f0a907c301dd6542da",
@@ -57,6 +62,8 @@ def test_enex(tmpdir):
             "duration": "0",
             "timestamp": "19700101T000000Z",
             "ocr": None,
+            "reco-type": None,
+            "file-name": None,
         },
         {
             "md5": "91bd26175acac0b2ffdb6efac199f8ca",
@@ -66,26 +73,39 @@ def test_enex(tmpdir):
             "duration": "0",
             "timestamp": "19700101T000000Z",
             "ocr": None,
+            "reco-type": None,
+            "file-name": None,
+        },
+        {
+            "md5": "76dd28b07797cc9f3f129c4871c5293c",
+            "mime": "image/png",
+            "width": "670",
+            "height": "128",
+            "duration": "0",
+            "timestamp": "19700101T000000Z",
+            "ocr": "This is so can test the OCR",
+            "reco-type": "unknown",
+            "file-name": "Untitled-1.png",
         },
     ]
-    assert list(db["resources_data"].rows) == [
-        {
-            "md5": "61098c2c541de7f0a907c301dd6542da",
-            "data": b'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"\naria-label="Python" role="img"\nviewBox="0 0 512 512"><rect\nwidth="512" height="512"\nrx="15%"\nfill="#fff"/><g fill="#5a9fd4"><path id="p" d="M254 64c-16 0-31 1-44 4-39 7-46 21-46 47v35h92v12H130c-27 0-50 16-58 46-8 35-8 57 0 93 7 28 23 47 49 47h32v-42c0-30 26-57 57-57h91c26 0 46-21 46-46v-88c0-24-21-43-46-47-15-3-32-4-47-4zm-50 28c10 0 17 8 17 18 0 9-7 17-17 17-9 0-17-8-17-17 0-10 8-18 17-18z"/></g><use xlink:href="#p" fill="#ffd43b" transform="rotate(180,256,255)"/></svg>',
-        },
-        {
-            "md5": "91bd26175acac0b2ffdb6efac199f8ca",
-            "data": b'<svg xmlns="http://www.w3.org/2000/svg"\naria-label="Evernote" role="img"\nviewBox="0 0 512 512"><rect\nwidth="512" height="512"\nrx="15%"\nfill="#46c850"/><path d="m121 143h35c3 0 4-1 4-4l-1-38c0-10 6-19 6-19h-1l-68 67v1s10-7 25-7zm271-6c-3-15-12-23-20-25-32-8-65-12-98-11-2-19-18-29-54-29-31-1-49 6-49 29v39c0 8-5 13-14 13h-34c-7 0-13 2-18 4-4 2-14 7-14 30-1 19 13 95 23 115 3 9 6 12 14 15 16 8 54 15 73 18 17 2 28 6 36-8 2-4 10-30 9-52 0-1 2-2 2 0 0 7-2 36 19 43l45 9c16 1 28 7 28 49 0 25-6 28-34 28-22 0-30 1-30-17 0-14 14-13 25-13 4 0 1-3 1-12s5-14 0-14c-36-1-58 0-58 45 0 42 16 49 68 49 40 0 55-1 71-52 25-78 18-205 9-253zm-46 115c-5-6-31-8-40-4 2-10 6-22 22-22 15 0 18 16 18 26z" fill="#4b4b4b"/></svg>',
-        },
+    resource_md5s = [rd["md5"] for rd in db["resources_data"].rows]
+    assert resource_md5s == [
+        "61098c2c541de7f0a907c301dd6542da",
+        "91bd26175acac0b2ffdb6efac199f8ca",
+        "76dd28b07797cc9f3f129c4871c5293c",
     ]
     assert list(db["note_resources"].rows) == [
         {
-            "note_id": "90793bd8e8b666d74e70f595b7bf07e04509688e",
+            "note_id": "8e2d6cef463bf974fe15c145d02dcfb90e4dc2af",
             "resource_id": "61098c2c541de7f0a907c301dd6542da",
         },
         {
-            "note_id": "90793bd8e8b666d74e70f595b7bf07e04509688e",
+            "note_id": "8e2d6cef463bf974fe15c145d02dcfb90e4dc2af",
             "resource_id": "91bd26175acac0b2ffdb6efac199f8ca",
+        },
+        {
+            "note_id": "8e2d6cef463bf974fe15c145d02dcfb90e4dc2af",
+            "resource_id": "76dd28b07797cc9f3f129c4871c5293c",
         },
     ]
     # Check we enabled Porter stemming

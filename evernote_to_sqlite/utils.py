@@ -72,14 +72,11 @@ def save_resource(db, resource):
     if attributes is not None:
         row.update({attribute.tag: attribute.text for attribute in attributes})
     if resource.find("recognition") is not None:
-        ocr = " ".join(
-            [
-                t.text
-                for t in ET.fromstring(resource.find("recognition").text).findall(
-                    ".//t"
-                )
-            ]
-        )
+        # Take the first <t> element in each <item> group
+        words = []
+        for item in ET.fromstring(resource.find("recognition").text).findall(".//item"):
+            words.append(item.find("t").text)
+        ocr = " ".join(words)
     else:
         ocr = None
     row["ocr"] = ocr
@@ -95,6 +92,8 @@ def ensure_indexes(db):
         db["notes"].enable_fts(
             ["title", "content"], create_triggers=True, tokenize="porter"
         )
+    if not db["resources_fts"].exists():
+        db["resources"].enable_fts(["ocr"], create_triggers=True, tokenize="porter")
 
 
 def convert_datetime(s):
