@@ -5,7 +5,7 @@
 [![Tests](https://github.com/dogsheep/evernote-to-sqlite/workflows/Test/badge.svg)](https://github.com/dogsheep/evernote-to-sqlite/actions?query=workflow%3ATest)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/dogsheep/evernote-to-sqlite/blob/master/LICENSE)
 
-Tools for converting Evernote content to SQLite
+Tools for converting Evernote content to SQLite. See [Building an Evernote to SQLite exporter](https://simonwillison.net/2020/Oct/16/building-evernote-sqlite-exporter/) for background on this project.
 
 ## Installation
 
