@@ -24,7 +24,7 @@ def cli():
 def enex(db_path, enex_file):
     "Convert Evernote .enex exports to SQLite"
     file_length = os.path.getsize(enex_file)
-    fp = open(enex_file)
+    fp = open(enex_file, 'r', encoding='utf-8')
     db = sqlite_utils.Database(db_path)
     with click.progressbar(length=file_length, label="Importing from ENEX") as bar:
         for tag, note in find_all_tags(fp, ["note"], progress_callback=bar.update):

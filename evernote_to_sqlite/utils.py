@@ -25,7 +25,10 @@ def find_all_tags(fp, tags, progress_callback=None):
 def save_note(db, note):
     title = note.find("title").text
     created = note.find("created").text
-    updated = note.find("updated").text
+    if note.find('updated') is not None:
+        updated = note.find("updated").text
+    else:
+        updated = created
     # Some content has &nbsp; which breaks the XML parser
     content_xml = note.find("content").text.replace("&nbsp;", "")
     content = ET.tostring(ET.fromstring(content_xml)).decode("utf-8")
