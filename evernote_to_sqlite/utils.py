@@ -2,6 +2,8 @@ from xml.etree import ElementTree as ET
 import base64
 import datetime
 import hashlib
+import html.entities
+import re
 
 
 def find_all_tags(fp, tags, progress_callback=None):
@@ -26,9 +28,8 @@ def save_note(db, note):
     title = note.find("title").text
     created = note.find("created").text
     updated = note.find("updated").text
-    # Some content has &nbsp; which breaks the XML parser
-    content_xml = note.find("content").text.replace("&nbsp;", "")
-    content = ET.tostring(ET.fromstring(content_xml.strip())).decode("utf-8")
+    content_xml = resolve_entities(note.find("content").text.strip())
+    content = ET.tostring(ET.fromstring(content_xml)).decode("utf-8")
     row = {
         "title": title,
         "content": content,
@@ -98,3 +99,13 @@ def ensure_indexes(db):
 
 def convert_datetime(s):
     return datetime.datetime.strptime(s, "%Y%m%dT%H%M%SZ").isoformat()
+
+
+_entities_re = re.compile(r"&(\w+);")
+
+
+def resolve_entities(s):
+    # Replace all &nbsp; entities with their unicode equivalents
+    return _entities_re.sub(
+        lambda m: html.entities.entitydefs.get(m.group(1), m.group(1)), s
+    )
