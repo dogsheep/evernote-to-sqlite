@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-VERSION = "0.2"
+VERSION = "0.3"
 
 
 def get_long_description():
@@ -31,7 +31,7 @@ setup(
         [console_scripts]
         evernote-to-sqlite=evernote_to_sqlite.cli:cli
     """,
-    install_requires=["click", "sqlite-utils"],
+    install_requires=["click", "sqlite-utils>=3.0"],
     extras_require={"test": ["pytest"]},
     tests_require=["evernote-to-sqlite[test]"],
 )
