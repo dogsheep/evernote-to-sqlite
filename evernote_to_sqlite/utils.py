@@ -28,7 +28,7 @@ def save_note(db, note):
     updated = note.find("updated").text
     # Some content has &nbsp; which breaks the XML parser
     content_xml = note.find("content").text.replace("&nbsp;", "")
-    content = ET.tostring(ET.fromstring(content_xml)).decode("utf-8")
+    content = ET.tostring(ET.fromstring(content_xml.strip())).decode("utf-8")
     row = {
         "title": title,
         "content": content,
