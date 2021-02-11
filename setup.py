@@ -31,7 +31,7 @@ setup(
         [console_scripts]
         evernote-to-sqlite=evernote_to_sqlite.cli:cli
     """,
-    install_requires=["click", "sqlite-utils"],
+    install_requires=["click", "sqlite-utils>=3.0"],
     extras_require={"test": ["pytest"]},
     tests_require=["evernote-to-sqlite[test]"],
 )
