@@ -1,0 +1,4 @@
+click~=8.0.0
+setuptools~=56.2.0
+rich~=10.2.0
+lxml~=4.6.3
