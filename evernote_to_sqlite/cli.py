@@ -84,18 +84,6 @@ def recover_enex(db_path, enex_file, max_note_size=30, resume_file=None):
     and specifically useful for very large Enex file. Be warned that this takes
     a very long time for larges Enex files."""
 
-    # with Progress() as progress:
-    #     task1 = progress.add_task("[red]Downloading...", total=1000)
-    #     task2 = progress.add_task("[green]Processing...", total=1000)
-    #     task3 = progress.add_task("[cyan]Cooking...", total=1000)
-    #
-    #     while not progress.finished:
-    #         progress.update(task1, advance=0.5)
-    #         progress.update(task2, advance=0.3)
-    #         progress.update(task3, advance=0.9)
-    #         progress.console.print(f"Working on job #{dt.datetime.now().isoformat()}")
-    #         time.sleep(0.01)
-
     file_length = os.path.getsize(enex_file)
     db = sqlite_utils.Database(db_path)
     fp = open(enex_file, "r", encoding="utf-8")
