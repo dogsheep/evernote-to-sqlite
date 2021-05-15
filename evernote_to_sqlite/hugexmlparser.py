@@ -1,12 +1,14 @@
 import re
-from typing import Union, List, BinaryIO, Annotated, Tuple
+from typing import Union, List, BinaryIO, Tuple
+from typing_extensions import Annotated
+import pickle
 
 
 def read_recovery_file(fn="/tmp/records.pickle") -> set:
     try:
         with open(fn, "rb") as f:
             records = pickle.load(f)
-    except (FileNotFoundError, EOFError):
+    except (FileNotFoundError, EOFError, TypeError):
         records = set()
     return records
 
@@ -17,7 +19,7 @@ def update_recovery_file(records, fn="/tmp/records.pickle"):
 
 
 class HugeXmlParser:
-    def __init__(self, filename: str, tag: str = "note", max_size_mb: int = 30):
+    def __init__(self, filename: str, tag: str = "note", max_size_mb: int = 30, progress_bar=None):
         """
         Class for handling big malformed XML files
         Args:
@@ -30,6 +32,15 @@ class HugeXmlParser:
         self.filename = filename
         self.tag = tag
         self.max_size_mb = max_size_mb
+        self.progess_bar = progress_bar
+        if self.progess_bar:
+            self.note_progress = self.progess_bar.add_task("[red]Parsing note...", total=self.max_size_mb)
+
+    def print(self, text):
+        if self.progess_bar:
+            self.progess_bar.console.print(text)
+        else:
+            print(text)
 
     @staticmethod
     def split_and_strip(whole_chunk: Union[str, bytes], tag: str = "note") -> List:
@@ -158,9 +169,17 @@ class HugeXmlParser:
         else:
             return pos, None
 
+    def update_progress_bar(self, current_megabyte):
+        if not self.progess_bar:
+            return
+        if current_megabyte > 0:
+            self.progess_bar.update(self.note_progress, completed=current_megabyte)
+        else:
+            self.progess_bar.reset(self.note_progress)
+
     def yield_content_until_end(
         self, chunk: bytes, chunk_size: int, f: BinaryIO, index_content: int, pos: int
-    ) -> List[Annotated[int, "Start byte"], Annotated[int, "End byte"], bytes]:
+    ) -> Tuple[Annotated[int, "Start byte"], Annotated[int, "End byte"], bytes]:
         """
         Yields bytes until end tag reached
         Args:
@@ -186,20 +205,20 @@ class HugeXmlParser:
             # get next big chunks without end-tag
             while True:
                 pos, big_chunk_with_no_end = self.get_next_chunk_without_end(f, pos)
-                # print(f"pos: {pos}, big_chunk_with_no_end: {big_chunk_with_no_end}")
                 if big_chunk_with_no_end:
                     result += big_chunk_with_no_end
                     current_pos += len(big_chunk_with_no_end)
                     new_megabyte_progress = int(round(current_pos, -6) / 1_000_000)
                     if new_megabyte_progress is not last_megabyte_progress:
-                        print(
+                        self.print(
                             f"processing current content {index_content}: {new_megabyte_progress} MB"
                         )
+                        self.update_progress_bar(new_megabyte_progress)
                         last_megabyte_progress = new_megabyte_progress
                 else:
                     break
                 if last_megabyte_progress >= self.max_size_mb:
-                    print(f"Exceeding max size of {self.max_size_mb}, breaking")
+                    self.print(f"Exceeding max size of {self.max_size_mb}, breaking")
                     self.exceed_max += 1
                     abort = True
                     break
