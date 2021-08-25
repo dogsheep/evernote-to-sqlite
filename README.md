@@ -17,7 +17,9 @@ Install this tool using `pip`:
 
 Currently the only available command is `evernote-to-sqlite enex`, which converts Evernote's ENEX export files into a SQLite database.
 
-You can create an ENEX export in the Evernote desktop application by selecting some notes (or all of your notes) and using the `File -> Export Notes...` menu option.
+You can create [an ENEX export](https://help.evernote.com/hc/en-us/articles/209005557-Export-notes-and-notebooks-as-ENEX-or-HTML) in the Evernote desktop application by selecting some notes (or all of your notes) and using the `File -> Export Notes...` menu option.
+
+This used to be able to export everything in one go, but it looks like more recent Evernote versions only allow exporting up to fifty notes at a time, or let you export an entire notebook by right-clicking on the notebook and selecting "Export notebook...".
 
 You can convert that file to SQLite like so:
 
