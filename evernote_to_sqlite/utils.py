@@ -113,3 +113,49 @@ def resolve_entities(s):
     return _entities_re.sub(
         lambda m: html.entities.entitydefs.get(m.group(1), m.group(1)), s
     )
+
+
+def save_note_recovery(db, note):
+    title = note.find("title").text
+    created = note.find("created").text
+    if note.find("updated") is not None:
+        updated = note.find("updated").text
+    else:
+        updated = created
+    content = note.find("content").text
+    row = {
+        "title": title,
+        "content": content,
+        "created": convert_datetime(created),
+        "updated": convert_datetime(updated),
+    }
+    attributes = note.find("note-attributes")
+    if attributes is not None:
+        row.update({attribute.tag: attribute.text for attribute in attributes})
+    # If any of those attributes end in -date, e.g. 'subject-date', convert them
+    for key in row:
+        if key.endswith("-date"):
+            row[key] = convert_datetime(row[key])
+    note_id = db["notes"].insert(row, hash_id="id", replace=True, alter=True).last_pk
+    # Now do the resources
+    for resource in note.findall("resource"):
+        resource_id = save_resource(db, resource)
+        db["note_resources"].insert(
+            {
+                "note_id": note_id,
+                "resource_id": resource_id,
+            },
+            pk=("note_id", "resource_id"),
+            foreign_keys=("note_id", "resource_id"),
+            replace=True,
+        )
+
+
+def human_size(bytes, units=[" bytes", "KB", "MB", "GB", "TB", "PB", "EB"]):
+    return (
+        str(bytes) + units[0]
+        if bytes < 1024
+        else human_size(bytes >> 10, units[1:])
+        if units[1:]
+        else f"{bytes>>10}ZB"
+    )
