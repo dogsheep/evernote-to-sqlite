@@ -39,9 +39,9 @@ def test_enex(tmpdir):
     }
     assert list(db["notes"].rows) == [
         {
-            "id": "1ea8b9baeca91343cdb6a12d44f5cdb2edf5f2e5",
+            "id": "9db0b9b53af965103eca742e32118808c4b2706c",
             "title": "Example note with images",
-            "content": '<en-note><div>This note includes two images. &#353;.</div><div><br /></div><div><span style="font-weight: bold;">The Python logo</span></div><div><br /></div><div><en-media hash="61098c2c541de7f0a907c301dd6542da" type="image/svg+xml" width="125" /><br /></div><div><br /></div><div><span style="font-weight: bold;">The Evernote logo</span></div><div><br /></div><div><en-media hash="91bd26175acac0b2ffdb6efac199f8ca" type="image/svg+xml" width="125" /><br /></div><div><br /></div><div>This image contains text:</div><div><br /></div><div><en-media hash="76dd28b07797cc9f3f129c4871c5293c" type="image/png" /></div><div><br /></div></en-note>',
+            "content": '<en-note><div>This note includes two images. š.</div><div><br /></div><div><span style="font-weight: bold;">The Python logo</span></div><div><br /></div><div><en-media hash="61098c2c541de7f0a907c301dd6542da" type="image/svg+xml" width="125" /><br /></div><div><br /></div><div><span style="font-weight: bold;">The Evernote logo</span></div><div><br /></div><div><en-media hash="91bd26175acac0b2ffdb6efac199f8ca" type="image/svg+xml" width="125" /><br /></div><div><br /></div><div>This image contains text:</div><div><br /></div><div><en-media hash="76dd28b07797cc9f3f129c4871c5293c" type="image/png" /></div><div><br /></div></en-note>',
             "created": "2020-10-11T21:28:22",
             "updated": "2020-10-11T23:30:38",
             "latitude": "37.77742571705006",
@@ -96,15 +96,15 @@ def test_enex(tmpdir):
     ]
     assert list(db["note_resources"].rows) == [
         {
-            "note_id": "1ea8b9baeca91343cdb6a12d44f5cdb2edf5f2e5",
+            "note_id": "9db0b9b53af965103eca742e32118808c4b2706c",
             "resource_id": "61098c2c541de7f0a907c301dd6542da",
         },
         {
-            "note_id": "1ea8b9baeca91343cdb6a12d44f5cdb2edf5f2e5",
+            "note_id": "9db0b9b53af965103eca742e32118808c4b2706c",
             "resource_id": "91bd26175acac0b2ffdb6efac199f8ca",
         },
         {
-            "note_id": "1ea8b9baeca91343cdb6a12d44f5cdb2edf5f2e5",
+            "note_id": "9db0b9b53af965103eca742e32118808c4b2706c",
             "resource_id": "76dd28b07797cc9f3f129c4871c5293c",
         },
     ]

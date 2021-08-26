@@ -31,9 +31,15 @@ def save_note(db, note):
         updated = note.find("updated").text
     else:
         updated = created
-    # Some content has &nbsp; which breaks the XML parser
-    content_xml = resolve_entities(note.find("content").text.strip())
-    content = ET.tostring(ET.fromstring(content_xml)).decode("utf-8")
+
+    # At this point content pretends to be XML - it starts with a
+    # <?xml?> prolog and a <!DOCTYPE and wraps content in <en-note>
+    # BUT... it's simply not valid! Should treat as HTML instead.
+    # https://github.com/dogsheep/evernote-to-sqlite/issues/13
+    # Strip the <?xml?> and <!DOCTYPE but leave the <en-note> wrapper
+    content = resolve_entities(
+        strip_prolog_and_doctype(note.find("content").text.strip())
+    )
     row = {
         "title": title,
         "content": content,
@@ -106,6 +112,8 @@ def convert_datetime(s):
 
 
 _entities_re = re.compile(r"&(\w+);")
+_prolog_re = re.compile(r"<\?xml[^>]+>")
+_doctype_re = re.compile(r"<!DOCTYPE[^>]+>")
 
 
 def resolve_entities(s):
@@ -113,3 +121,7 @@ def resolve_entities(s):
     return _entities_re.sub(
         lambda m: html.entities.entitydefs.get(m.group(1), m.group(1)), s
     )
+
+
+def strip_prolog_and_doctype(not_xml):
+    return _doctype_re.sub("", _prolog_re.sub("", not_xml)).strip()
