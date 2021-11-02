@@ -66,6 +66,25 @@ def save_note(db, note):
             foreign_keys=("note_id", "resource_id"),
             replace=True,
         )
+    for tag in note.findall("tag"):
+        save_tag(db, tag.text, note_id)
+
+def save_tag(db, tag, note_id):
+    if tag is None:
+        return
+    md5 = hashlib.md5(tag.encode()).hexdigest()
+    row = {
+        "md5": md5,
+        "name": tag,
+    }
+    db["tags"].insert(row, pk="md5", alter=True, replace=True)
+
+    rel = {
+        "note_id": note_id,
+        "tag_md5": md5,
+    }
+    db["notes_tags"].insert(rel, pk={"note_id", "tag_md5"}, alter=True, replace=True)
+    return
 
 
 def save_resource(db, resource):
