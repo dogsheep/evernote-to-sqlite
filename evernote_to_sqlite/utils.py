@@ -66,6 +66,18 @@ def save_note(db, note):
             foreign_keys=("note_id", "resource_id"),
             replace=True,
         )
+    for tag in note.findall("tag"):
+        save_tag(db, tag.text, note_id)
+
+def save_tag(db, tag, note_id):
+    if tag is None:
+        return
+    rel = {
+        "note_id": note_id,
+        "tag": tag,
+    }
+    db["notes_tags"].insert(rel, pk={"note_id", "tag"}, alter=True, replace=True)
+    return
 
 
 def save_resource(db, resource):
