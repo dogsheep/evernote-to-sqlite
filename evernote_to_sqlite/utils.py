@@ -72,18 +72,11 @@ def save_note(db, note):
 def save_tag(db, tag, note_id):
     if tag is None:
         return
-    md5 = hashlib.md5(tag.encode()).hexdigest()
-    row = {
-        "md5": md5,
-        "name": tag,
-    }
-    db["tags"].insert(row, pk="md5", alter=True, replace=True)
-
     rel = {
         "note_id": note_id,
-        "tag_md5": md5,
+        "tag": tag,
     }
-    db["notes_tags"].insert(rel, pk={"note_id", "tag_md5"}, alter=True, replace=True)
+    db["notes_tags"].insert(rel, pk={"note_id", "tag"}, alter=True, replace=True)
     return
 
 
